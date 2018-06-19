@@ -35,14 +35,20 @@ const commonPlugins = [
         main: true, // resolver will look for the main file.
         browser: true, // If they define a browser version, use that.
     }),
-    commonjs(),
+    commonjs({
+        namedExports: {
+            'node_modules/immutable/dist/immutable.js': [ 
+                'Map', 'Set', 'is', 'Seq', 'fromJS',
+            ],
+        }
+    }),
     eslint({
         exclude: [
             'src/styles/**',
         ],
     }),
     babel({
-        exclude: 'node_modules/**'
+        exclude: ['node_modules/**'],
     }),
     replace({
         //  Replace every ENV in code with the value set to the right.
